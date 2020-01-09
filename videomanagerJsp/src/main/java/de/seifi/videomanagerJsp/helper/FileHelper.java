@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.seifi.videomanagerJsp.bl.FoldersHandler;
-import de.seifi.videomanagerJsp.bl.PathSubtitlesHandler;
-
 public class FileHelper {
 
   public static List<FileData> getAllMediaFiles(final String path, final FoldersHandler foldersHandler,

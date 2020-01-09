@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.seifi.videomanagerJsp.bl.FoldersHandler;
-import de.seifi.videomanagerJsp.bl.PathSubtitlesHandler;
 import de.seifi.videomanagerJsp.models.PathSubtitleModel;
 
 public class FileData {
