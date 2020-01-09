@@ -1,74 +1,43 @@
 package de.seifi.videomanagerJsp.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tbltabs")
 public class TabModel {
 
-  int id;
-  int index;
-  String name;
-  String url;
-  int state;
+  @Id
+  @Column(name = "settingname")
+  String settingname;
+
+  @Column(name = "settingvalue")
+  String settingvalue;
 
   public TabModel() {
 
   }
 
-  public TabModel(final int id, final int index, final String name, final String url, final int state) {
+  public String getSettingname() {
 
-    this.id = id;
-    this.index = index;
-    this.name = name;
-    this.url = url;
-    this.state = state;
+    return this.settingname;
   }
 
-  public int getId() {
+  public void setSettingname(final String settingname) {
 
-    return this.id;
+    this.settingname = settingname;
   }
 
-  public void setId(final int id) {
+  public String getSettingvalue() {
 
-    this.id = id;
+    return this.settingvalue;
   }
 
-  public int getIndex() {
+  public void setSettingvalue(final String settingvalue) {
 
-    return this.index;
-  }
-
-  public void setIndex(final int index) {
-
-    this.index = index;
-  }
-
-  public String getName() {
-
-    return this.name;
-  }
-
-  public void setName(final String name) {
-
-    this.name = name;
-  }
-
-  public String getUrl() {
-
-    return this.url;
-  }
-
-  public void setUrl(final String url) {
-
-    this.url = url;
-  }
-
-  public int getState() {
-
-    return this.state;
-  }
-
-  public void setState(final int state) {
-
-    this.state = state;
+    this.settingvalue = settingvalue;
   }
 
 }

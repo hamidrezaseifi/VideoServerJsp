@@ -8,32 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tblfolders")
-public class FolderModel {
+@Table(name = "tblsettings")
+public class SettingModel {
 
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  @Column(name = "name")
+  int index;
   String name;
-
-  @Column(name = "path")
-  String path;
-
-  @Column(name = "state")
+  String url;
   int state;
 
-  public FolderModel() {
+  public SettingModel() {
 
   }
 
-  public FolderModel(final Long id, final String name, final String path, final int state) {
+  public SettingModel(final Long id, final int index, final String name, final String url, final int state) {
 
     this.id = id;
-    this.path = path;
+    this.index = index;
     this.name = name;
+    this.url = url;
     this.state = state;
   }
 
@@ -47,6 +44,16 @@ public class FolderModel {
     this.id = id;
   }
 
+  public int getIndex() {
+
+    return this.index;
+  }
+
+  public void setIndex(final int index) {
+
+    this.index = index;
+  }
+
   public String getName() {
 
     return this.name;
@@ -57,14 +64,14 @@ public class FolderModel {
     this.name = name;
   }
 
-  public String getPath() {
+  public String getUrl() {
 
-    return this.path;
+    return this.url;
   }
 
-  public void setPath(final String path) {
+  public void setUrl(final String url) {
 
-    this.path = path;
+    this.url = url;
   }
 
   public int getState() {

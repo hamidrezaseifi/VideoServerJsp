@@ -32,9 +32,6 @@ public class FileData {
   public String MkvMergPath;
 
   @Autowired
-  private final FoldersHandler foldersHandler;
-
-  @Autowired
   private final PathSubtitlesHandler pathSubtitlesHandler;
 
   public static boolean isFileMedia(final String path) {
@@ -63,9 +60,8 @@ public class FileData {
     return extension;
   }
 
-  public FileData(final String path, final FoldersHandler foldersHandler, final PathSubtitlesHandler pathSubtitlesHandler) {
+  public FileData(final String path, final PathSubtitlesHandler pathSubtitlesHandler) {
 
-    this.foldersHandler = foldersHandler;
     this.pathSubtitlesHandler = pathSubtitlesHandler;
 
     this.MkvMergPath = this.getClass().getClassLoader().getResource("static/mkv/mkvmerge.exe").getPath();

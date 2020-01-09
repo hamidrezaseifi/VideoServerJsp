@@ -1,16 +1,32 @@
 package de.seifi.videomanagerJsp.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tblpathsubtitle")
 public class PathSubtitleModel {
 
-  int id;
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
+
+  @Column(name = "suburl")
   String suburl;
+
+  @Column(name = "path")
   String path;
 
   public PathSubtitleModel() {
 
   }
 
-  public PathSubtitleModel(final int id, final String path, final String suburl) {
+  public PathSubtitleModel(final Long id, final String path, final String suburl) {
 
     this.id = id;
     this.path = path;
@@ -18,19 +34,14 @@ public class PathSubtitleModel {
 
   }
 
-  public int getId() {
+  public Long getId() {
 
     return this.id;
   }
 
-  public String getPath() {
+  public void setId(final Long id) {
 
-    return this.path;
-  }
-
-  public String getSubtitleUrl() {
-
-    return this.suburl;
+    this.id = id;
   }
 
   public String getSuburl() {
@@ -43,9 +54,9 @@ public class PathSubtitleModel {
     this.suburl = suburl;
   }
 
-  public void setId(final int id) {
+  public String getPath() {
 
-    this.id = id;
+    return this.path;
   }
 
   public void setPath(final String path) {
