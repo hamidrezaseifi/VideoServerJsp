@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 		    
+<div ng-controller="IndexController">
 
 <div class="row main-panel">
   <div class="col-3 folder-panel">
@@ -20,3 +21,5 @@
     </div>
   </div>
 </div>   
+
+</div>

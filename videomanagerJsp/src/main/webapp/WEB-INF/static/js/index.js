@@ -3,11 +3,7 @@
  */
 
 
-var videoApp = angular.module('videoApp', []);
-
-videoApp.controller('BodyController', function($scope) {
-
-	
+videoApp.controller('IndexController', function($scope) {
 
 });
 
