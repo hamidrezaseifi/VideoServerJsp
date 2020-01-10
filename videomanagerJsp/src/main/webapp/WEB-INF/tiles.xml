@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  
+	<definition name="base-definition" template="/WEB-INF/jsp/layouts/defaultLayout.jsp">  
+       	<put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />  
+       	<put-attribute name="body" value="" />  
+       	<put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp" />  
+	</definition>  
+     
+   <!-- Home Page -->
+   <definition name="index" extends="base-definition">  
+       <put-attribute name="body" value="/WEB-INF/jsp/pages/index.jsp" />  
+   </definition>  
+     
+   <!-- Folders-Index Page -->
+   <definition name="folders" extends="base-definition">  
+       <put-attribute name="body" value="/WEB-INF/jsp/pages/folders.jsp" />  
+   </definition>  
+     
+   <!-- Folders-Edit Page -->
+   <definition name="folder-edit" extends="base-definition">  
+       <put-attribute name="body" value="/WEB-INF/jsp/pages/folder-edit.jsp" />  
+   </definition>  
+     
+   <!-- Folders-Delete Page -->
+   <definition name="folder-delete" extends="base-definition">  
+       <put-attribute name="body" value="/WEB-INF/jsp/pages/folder-delete.jsp" />  
+   </definition>  
+     
+</tiles-definitions>

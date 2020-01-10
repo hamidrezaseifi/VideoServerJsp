@@ -4,13 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.seifi.videomanagerJsp.bl.FoldersHandler;
-import de.seifi.videomanagerJsp.bl.PathSubtitlesHandler;
-
 public class FileHelper {
 
-  public static List<FileData> getAllMediaFiles(final String path, final FoldersHandler foldersHandler,
-      final PathSubtitlesHandler pathSubtitlesHandler) {
+  public static List<FileData> getAllMediaFiles(final String path) {
 
     final List<FileData> files = new ArrayList<>();
 
@@ -19,14 +15,14 @@ public class FileHelper {
 
     for (int i = 0; i < listOfFiles.length; i++) {
       if (listOfFiles[i].isFile()) {
-        final FileData filedata = new FileData(listOfFiles[i].getAbsolutePath(), foldersHandler, pathSubtitlesHandler);
+        final FileData filedata = new FileData(listOfFiles[i].getAbsolutePath());
         if (filedata.isMedia) {
           files.add(filedata);
         }
 
       }
       else if (listOfFiles[i].isDirectory()) {
-        files.addAll(getAllMediaFiles(listOfFiles[i].getAbsolutePath(), foldersHandler, pathSubtitlesHandler));
+        files.addAll(getAllMediaFiles(listOfFiles[i].getAbsolutePath()));
       }
     }
 
