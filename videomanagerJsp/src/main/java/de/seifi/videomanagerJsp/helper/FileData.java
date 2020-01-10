@@ -5,10 +5,6 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import de.seifi.videomanagerJsp.models.PathSubtitleModel;
-
 public class FileData {
 
   public static String OutputExtentionTeil = "_out";
@@ -30,9 +26,6 @@ public class FileData {
   public boolean hasConverted;
 
   public String MkvMergPath;
-
-  @Autowired
-  private final PathSubtitlesHandler pathSubtitlesHandler;
 
   public static boolean isFileMedia(final String path) {
 
@@ -60,9 +53,7 @@ public class FileData {
     return extension;
   }
 
-  public FileData(final String path, final PathSubtitlesHandler pathSubtitlesHandler) {
-
-    this.pathSubtitlesHandler = pathSubtitlesHandler;
+  public FileData(final String path) {
 
     this.MkvMergPath = this.getClass().getClassLoader().getResource("static/mkv/mkvmerge.exe").getPath();
 
@@ -94,11 +85,11 @@ public class FileData {
 
     this.SubtitleUrl = "https://subscene.com/subtitles/release?q=" + this.Name;
 
-    final PathSubtitleModel subpath = pathSubtitlesHandler.getPathSubtitlesFromPath(this.FolderPath);
+    // final PathSubtitleModel subpath = this.pathSubtitlesHandler.getPathSubtitlesFromPath(this.FolderPath);
 
-    if (subpath != null) {
-      this.SubtitleUrl = subpath.getSuburl();
-    }
+    // if (subpath != null) {
+    // this.SubtitleUrl = subpath.getSuburl();
+    // }
 
     this.isInProcess = false;
     this.isInConvertProcess = false;

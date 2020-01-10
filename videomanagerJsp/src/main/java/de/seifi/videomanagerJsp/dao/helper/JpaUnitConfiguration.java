@@ -1,22 +1,24 @@
 package de.seifi.videomanagerJsp.dao.helper;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class JpaUnitConfiguration {
 
-  @PersistenceUnit(unitName = "default")
-  private EntityManagerFactory entityManagerFactory;
+  // @PersistenceUnit(unitName = "default")
+  // private EntityManagerFactory entityManagerFactory;
+
+  @PersistenceContext
+  private EntityManager entityManager;
 
   public EntityManager getEntityManager() {
 
-    final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+    // final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
 
-    return entityManager;
+    return this.entityManager;
   }
 
 }

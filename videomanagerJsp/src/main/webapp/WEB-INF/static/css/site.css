@@ -1,0 +1,108 @@
+
+body{
+	padding: 10px 50px;
+}
+
+.table.table-bordered thead tr{
+	background-color: #6c6b6b;
+    color: white;
+}
+
+.table.table-bordered thead tr th.index{
+	width: 40px;
+}
+
+.table.table-bordered thead tr th.action{
+	width: 100px;
+}
+
+
+
+.table.table-bordered a.action{
+    border: none;
+    background: transparent;
+    color: gray;
+}
+
+.table.table-bordered a.action:hover{
+    color: black;
+}
+
+
+footer{
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: #6c6b6b;
+    padding-top: 3px;
+    padding-left: 30px;
+    color: white;
+}
+
+header{
+	position: absolute;
+    top: 0;
+    left: 0;
+	height: 50px;
+    width: 100%;
+    background-color: #6c6b6b;
+    padding-top: 3px;
+    padding-left: 30px;
+    color: white;
+}
+
+header h3 , header ul{
+	float: left;
+}
+
+header ul{
+	margin-left: 30px;
+}
+
+header ul a.nav-link{
+	color: white;
+}
+
+
+header h3 a{
+	color: white;
+}
+
+
+header h3 a:hover{
+	color: #ffffce;
+	text-decoration: none;
+}
+
+
+.container.maincontainer{
+	margin-top: 70px;	
+}
+
+.main-panel{
+	height: calc(100vh - 150px);
+}
+
+.main-panel .folder-panel, .main-panel .files-panel {
+	height: calc(100vh - 150px);
+	background-color: lightgray;
+}
+
+.main-panel .files-panel {
+	background-color: lightgray;
+	max-width: calc(75% + 30px);
+	flex: 0 0 calc(75% + 30px);
+	border-radius: .25rem;
+}
+
+
+.main-panel .folder-panel {
+	margin-right: 5px;
+    padding: 3px;
+    max-width: calc(25% - 40px);
+    flex: 0 0 calc(25% - 40px);
+    border-radius: .25rem;
+}
+

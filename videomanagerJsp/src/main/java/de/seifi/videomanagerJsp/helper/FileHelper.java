@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FileHelper {
 
-  public static List<FileData> getAllMediaFiles(final String path, final PathSubtitlesHandler pathSubtitlesHandler) {
+  public static List<FileData> getAllMediaFiles(final String path) {
 
     final List<FileData> files = new ArrayList<>();
 
@@ -15,14 +15,14 @@ public class FileHelper {
 
     for (int i = 0; i < listOfFiles.length; i++) {
       if (listOfFiles[i].isFile()) {
-        final FileData filedata = new FileData(listOfFiles[i].getAbsolutePath(), pathSubtitlesHandler);
+        final FileData filedata = new FileData(listOfFiles[i].getAbsolutePath());
         if (filedata.isMedia) {
           files.add(filedata);
         }
 
       }
       else if (listOfFiles[i].isDirectory()) {
-        files.addAll(getAllMediaFiles(listOfFiles[i].getAbsolutePath(), pathSubtitlesHandler));
+        files.addAll(getAllMediaFiles(listOfFiles[i].getAbsolutePath()));
       }
     }
 
