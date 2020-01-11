@@ -151,3 +151,30 @@ header h3 a:hover{
 	font-size: 18px;
 	color: #5f5e5e;
 }
+
+.add-sub-title{
+	font-size: 16px;
+	margin: 10px;
+	margin-bottom: 20px;
+	
+}
+
+.modal-header{
+	padding: 5px;
+    padding-left: 15px;
+    background-color: #00408b;
+    color: white;
+}
+
+.modal-header button{
+	padding: 5px;
+    margin: 0;
+    color: white;
+}
+
+.lenguage-select{
+	margin-left: 20px;
+    width: 120px;
+}
+
+

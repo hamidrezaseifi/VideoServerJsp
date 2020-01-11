@@ -23,7 +23,7 @@
 		    				<span class="filename">{{file.name}}</span>
 		    				<a target="_self" href="localexplorer:{{file.folderPath}}"><i class="material-icons">folder</i></a>
 		    				<button type="button" ng-click="searchSub(file.name)"><i class="material-icons">search</i></button>
-		    				<button type="button"><i class="material-icons">note_add</i></button>
+		    				<button ng-if="file.hasSubtitle" ng-click="showAddSubModal(file)" type="button"><i class="material-icons">note_add</i></button>
 		    				
 		    			</div>
 	    			</div>
@@ -32,6 +32,32 @@
 	    </div>
 	  </div>
 	</div>   
+	
+	
+	<div class="modal fade" id="addSubtitleModal" tabindex="-1" role="dialog" aria-labelledby="addSubtitleModal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Add Subtitle Process</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <div class="add-sub-title">{{addSubFile.name}}</div>
+	        <select ng-model="addSubLang" class="lenguage-select">
+	        	<option value="per">Persian</option>
+	        	<option value="en">English</option>
+	        	<option value="ger">German</option>
+	        </select>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" ng-click="addSub()">Add</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 	<form id="search-sub-form" method="post" action="https://subscene.com/subtitles/searchbytitle" target="_blank">
 		<input type="hidden" name="query" id="query" value="">

@@ -17,7 +17,7 @@ public class ProcessInfo {
 
     this.outputFileName = proc.getFileData().getName();
     this.outputFilePath = proc.getOutputPath();
-    this.outputFilePathHash = proc.getFileData().getBase64OutputFilePath();
+    this.outputFilePathHash = proc.getFileData().getOutputFilePathHash();
     this.folderPath = proc.getFileData().getFolderPath();
     this.processType = proc.getProcessType();
     this.status = proc.getState().name();

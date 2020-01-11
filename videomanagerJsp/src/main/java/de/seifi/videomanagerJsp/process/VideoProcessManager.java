@@ -2,6 +2,7 @@ package de.seifi.videomanagerJsp.process;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -93,4 +94,8 @@ public class VideoProcessManager {
     return this.processList.get(index);
   }
 
+  public List<ProcessInfo> getInfoList() {
+
+    return this.processList.stream().map(p -> p.getInfo()).collect(Collectors.toList());
+  }
 }

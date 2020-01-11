@@ -86,7 +86,7 @@ public class FileData {
     this.isInSubtitleProcess = false;
   }
 
-  public String getBase64OutputFilePath() {
+  public String getOutputFilePathHash() {
 
     final byte[] bytesEncoded = Base64.getEncoder().encode(this.outputPath.getBytes());
     return new String(bytesEncoded);

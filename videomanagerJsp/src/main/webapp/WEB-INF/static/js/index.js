@@ -5,6 +5,8 @@
 
 videoApp.controller('IndexController', function($scope, $http) {
 	$scope.files = [];
+	$scope.addSubFile = {};
+	$scope.addSubLang = "";
 	
 	
 	$scope.getFolderFiles = function(folderId){
@@ -36,6 +38,29 @@ videoApp.controller('IndexController', function($scope, $http) {
 		
 		$("#search-sub-form #query").val(fileName);
 		$("#search-sub-form").submit();
+		
+	}
+	
+	$scope.showAddSubModal = function(file){
+		
+		$scope.addSubFile = file;
+		$scope.addSubLang = "per";
+		
+		$("#addSubtitleModal").modal();
+		
+	}
+	
+	$scope.addSub = function(){
+		
+		var data = {"language": $scope.addSubLang, "file": $scope.addSubFile.outputFilePathHash, "command": "status"};
+		
+		$http.post('/process/add', data).then(function(data){
+			alert("add");
+		}, function(error){
+			alert("error");
+		});
+		
+		$("#addSubtitleModal").modal('hide');
 		
 	}
 	

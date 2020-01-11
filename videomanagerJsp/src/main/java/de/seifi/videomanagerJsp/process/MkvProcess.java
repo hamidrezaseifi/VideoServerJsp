@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import de.seifi.videomanagerJsp.helper.FileData;
@@ -20,9 +21,12 @@ public class MkvProcess implements Runnable, IVideoProcess {
   private int lastPercent;
   private String lastPercentString;
 
-  public MkvProcess(final FileData filedata, final String lang) {
+  public MkvProcess(final String filepathhash, final String lang) {
 
-    this.fileData = filedata;
+    final byte[] realpathdata = Base64.getDecoder().decode(filepathhash.getBytes());
+    final String realfilePath = new String(realpathdata);
+
+    this.fileData = new FileData(realfilePath);
     this.command = new ArrayList<>();
     this.statusList = new ArrayList<>();
     this.errorList = new ArrayList<>();
