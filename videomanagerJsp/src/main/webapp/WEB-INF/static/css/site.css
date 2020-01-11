@@ -106,3 +106,48 @@ header h3 a:hover{
     border-radius: .25rem;
 }
 
+.files-panel .tab-content{
+	height: 98%;
+}
+
+.files-panel .tab-content .tab-pane{
+	height: 100%;
+}
+
+.files-panel .tab-content .tab-pane .file-list-container{
+	height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+.files-panel .file-list-item{
+	height: 30px;
+    line-height: 28px;
+    padding: 2px 5px 2px 10px;
+    margin: 3px 5px 3px 2px;
+    font-size: 14px;
+}
+
+.files-panel .file-list-item.nosub{
+    background-color: #c4e6c8;
+}
+
+.files-panel .file-list-item.hassub{
+    background-color: #c2cde7;
+}
+
+.files-panel .file-list-item .filename{
+	margin-right: 5px;
+}
+
+.files-panel .file-list-item button{
+	margin: 0 5px;
+	border: none;
+	background-color: transparent;
+	padding: 0;
+}
+
+.files-panel .file-list-item button i.material-icons, .files-panel .file-list-item a i.material-icons{
+	top: 4px;
+	font-size: 18px;
+	color: #5f5e5e;
+}

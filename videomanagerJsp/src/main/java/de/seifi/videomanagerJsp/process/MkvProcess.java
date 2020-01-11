@@ -30,11 +30,11 @@ public class MkvProcess implements Runnable, IVideoProcess {
 
     this.command.add("\"C:\\Program Files\\MKVToolNix\\mkvmerge\"");
     this.command.add("-o");
-    this.command.add(this.fileData.OutputPath);
-    this.command.add(this.fileData.Path);
+    this.command.add(this.fileData.getOutputPath());
+    this.command.add(this.fileData.getPath());
     this.command.add("--language");
     this.command.add("\"0:" + lang + "\"");
-    this.command.add(this.fileData.SubtitlePath);
+    this.command.add(this.fileData.getSubtitlePath());
 
     this.lastPercent = 0;
     this.lastPercentString = "0";
@@ -101,13 +101,13 @@ public class MkvProcess implements Runnable, IVideoProcess {
   @Override
   public String getOutputPath() {
 
-    return this.fileData.OutputPath;
+    return this.fileData.getOutputPath();
   }
 
   @Override
   public String getInputPath() {
 
-    return this.fileData.Path;
+    return this.fileData.getPath();
   }
 
   @Override
