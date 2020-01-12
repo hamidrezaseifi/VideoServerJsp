@@ -8,6 +8,90 @@ videoApp.controller('IndexController', function($scope, $http) {
 	$scope.addSubFile = {};
 	$scope.addSubLang = "";
 	
+	$scope.processlist = [];
+	
+	
+	
+	
+	$scope.stompClient = null;
+	$scope.connected = false;
+
+	function setConnected(isConnected) {
+		$scope.connected = isConnected;
+		$scope.$apply();
+		//alert($scope.connected);
+	}
+
+	$scope.connect = function() {
+	    var socket = new SockJS('/videoserver-guide-websocket');
+	    $scope.stompClient = Stomp.over(socket);
+	    $scope.stompClient.connect({}, function (frame) {
+	        setConnected(true);
+	        console.log('Connected: ' + frame);
+	        $scope.stompClient.subscribe('/socket/messages', function (message) {
+	            processMessage(JSON.parse(message.body));
+	        });
+	    });
+	}
+
+	function disconnect() {
+	    if ($scope.stompClient !== null) {
+	        $scope.stompClient.disconnect();
+	    }
+	    setConnected(false);
+	    console.log("Disconnected");
+	}
+
+	function sendName() {
+	    $scope.stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+	}
+
+	function processMessage(message) {
+	    if(message.status === 'ok'){
+	    	
+	    	if(message.command === 'add' && message.info){
+	    		$scope.processlist.push(message.info);
+	    		$('#process-tab').tab('show');
+	    		//$('#filestab').tab('hide');
+		    }
+	    	
+	    	if(message.command === 'delete' && message.hash){	
+	    		//alert(message.hash);
+	    		//$scope.processlist = [];
+	    		
+	    		$scope.processlist = $scope.processlist.filter(function(process){
+	    			return process.hash != message.hash;
+	    		});
+	    			
+		    }
+	    	
+	    	if(message.command === 'status' && message.hash && message.info){	
+	    		//alert(message.hash);
+	    		//$scope.processlist = [];
+	    		
+	    		for(index in $scope.processlist){
+	    			if($scope.processlist[index].hash == message.hash){
+	    				$scope.processlist[index] = message.info;
+	    			}
+	    		}
+	    		
+	    			
+		    }
+	    }
+	    
+	    $scope.$apply();
+	}
+	
+	$scope.getConnectedStatus = function(){
+		return $scope.connected ? 'Connected ...' : 'Not Connected!';
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	$scope.getFolderFiles = function(folderId){
 		if(folderId in $scope.files){
@@ -52,10 +136,10 @@ videoApp.controller('IndexController', function($scope, $http) {
 	
 	$scope.addSub = function(){
 		
-		var data = {"language": $scope.addSubLang, "file": $scope.addSubFile.outputFilePathHash, "command": "status"};
+		var data = {"language": $scope.addSubLang, "file": $scope.addSubFile.base64Path, "command": "status"};
 		
 		$http.post('/process/add', data).then(function(data){
-			alert("add");
+			//alert("add");
 		}, function(error){
 			alert("error");
 		});
@@ -65,6 +149,26 @@ videoApp.controller('IndexController', function($scope, $http) {
 	}
 	
 	
+	$scope.startProcess = function(hash){
+		$scope.stompClient.send("/process/action", {}, JSON.stringify({'status': "ok", "command" :"start", "hash": hash }));
+		
+	}
 	
+	$scope.stopProcess = function(hash){
+		$scope.stompClient.send("/process/action", {}, JSON.stringify({'status': "ok", "command" :"stop", "hash": hash }));
+		
+		
+		
+	}
+	
+	$scope.deleteProcess = function(hash){
+		$scope.stompClient.send("/process/action", {}, JSON.stringify({'status': "ok", "command" :"delete", "hash": hash }));
+		
+		
+		
+	}
+
+	
+	$scope.connect();
 });
 

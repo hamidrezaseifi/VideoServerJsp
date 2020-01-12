@@ -28,4 +28,8 @@ public interface IVideoProcess {
 
   public void stop();
 
+  public int getHashData();
+
+  void setHashData(final int hashData);
+
 }

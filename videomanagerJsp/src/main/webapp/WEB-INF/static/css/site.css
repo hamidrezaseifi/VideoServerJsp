@@ -82,18 +82,18 @@ header h3 a:hover{
 }
 
 .main-panel{
-	height: calc(100vh - 150px);
+	height: calc(100vh - 180px);
 }
 
 .main-panel .folder-panel, .main-panel .files-panel {
-	height: calc(100vh - 150px);
-	background-color: lightgray;
+	height: calc(100vh - 180px);
+	background-color: #eaeaea;
 }
 
 .main-panel .files-panel {
-	background-color: lightgray;
-	max-width: calc(75% + 30px);
-	flex: 0 0 calc(75% + 30px);
+	background-color: #eaeaea;
+	max-width: calc(75% + 10px);
+	flex: 0 0 calc(75% + 10px);
 	border-radius: .25rem;
 }
 
@@ -110,16 +110,16 @@ header h3 a:hover{
 	height: 98%;
 }
 
-.files-panel .tab-content .tab-pane{
+.files-panel .tab-content .tab-pane , .process-panel .tab-content .tab-pane{
 	height: 100%;
 }
 
-.files-panel .tab-content .tab-pane .file-list-container{
+.files-panel .tab-content .tab-pane .file-list-container , .process-panel .tab-content .tab-pane .file-list-container{
 	height: calc(100% - 40px);
     overflow-y: auto;
 }
 
-.files-panel .file-list-item{
+.files-panel .file-list-item , .process-panel .file-list-item{
 	height: 30px;
     line-height: 28px;
     padding: 2px 5px 2px 10px;
@@ -127,29 +127,35 @@ header h3 a:hover{
     font-size: 14px;
 }
 
-.files-panel .file-list-item.nosub{
+.file-list-item.nosub{
     background-color: #c4e6c8;
 }
 
-.files-panel .file-list-item.hassub{
+.files-panel .file-list-item.hassub , .process-panel .file-list-item.hassub{
     background-color: #c2cde7;
 }
 
-.files-panel .file-list-item .filename{
+.files-panel .file-list-item .filename , .process-panel .file-list-item .filename{
 	margin-right: 5px;
 }
 
-.files-panel .file-list-item button{
+.file-list-item button{
 	margin: 0 5px;
 	border: none;
 	background-color: transparent;
 	padding: 0;
 }
 
-.files-panel .file-list-item button i.material-icons, .files-panel .file-list-item a i.material-icons{
+.file-list-item button i.material-icons, 
+.file-list-item a i.material-icons{
 	top: 4px;
-	font-size: 18px;
+	font-size: 22px;
 	color: #5f5e5e;
+}
+
+.file-list-item button:hover i.material-icons, 
+.file-list-item a:hover i.material-icons{
+	color: #7b424b;
 }
 
 .add-sub-title{
@@ -175,6 +181,35 @@ header h3 a:hover{
 .lenguage-select{
 	margin-left: 20px;
     width: 120px;
+}
+
+.tab-content.main-tab-content {
+    padding-top: 10px;
+    padding-left: 20px;
+    border: 1px solid lightgray;
+    border-top: none;
+    height: calc(100vh - 160px);
+}
+
+.process-panel span, .process-panel button, .process-panel a{
+	float: left;
+}
+
+.process-panel span{
+	margin-right: 10px;
+}
+
+.process-panel .progress {
+    width: 200px;
+    display: inline-block;
+    height: 20px;
+    float: left;
+    margin: 3px 10px; 
+    
+}
+
+.process-panel .progress .progress-bar{
+    height: 20px;
 }
 
 

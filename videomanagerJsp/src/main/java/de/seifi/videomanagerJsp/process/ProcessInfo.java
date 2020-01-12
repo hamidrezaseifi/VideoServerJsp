@@ -12,6 +12,7 @@ public class ProcessInfo {
   private int percent;
   private boolean isRunning;
   private boolean isFinished;
+  private int hash;
 
   public ProcessInfo(final IVideoProcess proc) {
 
@@ -26,6 +27,7 @@ public class ProcessInfo {
 
     this.isRunning = proc.isRunning();
     this.isFinished = proc.getState() == ProcessState.Finished;
+    this.hash = proc.getHashData();
 
   }
 
@@ -127,6 +129,16 @@ public class ProcessInfo {
   public void setFinished(final boolean isFinished) {
 
     this.isFinished = isFinished;
+  }
+
+  public int getHash() {
+
+    return this.hash;
+  }
+
+  public void setHash(final int hash) {
+
+    this.hash = hash;
   }
 
 }

@@ -1,7 +1,8 @@
 package de.seifi.videomanagerJsp.process;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -9,79 +10,46 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class VideoProcessManager {
 
-  private final List<IVideoProcess> processList;
+  private final Map<Integer, IVideoProcess> processList;
 
   public VideoProcessManager() {
 
-    this.processList = new ArrayList<>();
+    this.processList = new HashMap<>();
 
   }
 
   public IVideoProcess add(final IVideoProcess videoProcess) {
 
-    if (!this.processByOutputExists(videoProcess.getOutputPath())) {
-      this.processList.add(videoProcess);
+    final int hash = videoProcess.hashCode();
+
+    if (!this.processByHashDataExists(hash)) {
+
+      videoProcess.setHashData(hash);
+
+      this.processList.put(hash, videoProcess);
       return videoProcess;
     }
     return null;
   }
 
-  public IVideoProcess removeByOutput(final String output) {
+  public void removeByHashData(final int hash) {
 
-    final int idx = this.processIndexByOutput(output);
-    if (idx > -1) {
-      final IVideoProcess p = this.processList.get(idx);
-      this.processList.remove(idx);
-      return p;
+    this.processList.remove(hash);
+
+  }
+
+  public IVideoProcess getByHashData(final int hash) {
+
+    if (this.processList.containsKey(hash)) {
+      return this.processList.get(hash);
     }
+
     return null;
   }
 
-  public IVideoProcess processByOutput(final String output) {
+  public boolean processByHashDataExists(final int hash) {
 
-    for (final IVideoProcess p : this.processList) {
-
-      if (p.getOutputPath().toLowerCase().equals(output.toLowerCase())) {
-        return p;
-      }
-    }
-    return null;
-  }
-
-  public int processIndexByOutput(final String output) {
-
-    for (int i = 0; i < this.processList.size(); i++) {
-      final IVideoProcess p = this.processList.get(i);
-      if (p.getOutputPath().toLowerCase().equals(output.toLowerCase())) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
-  public boolean processByOutputExists(final String output) {
-
-    return this.processByOutput(output) != null;
-  }
-
-  public boolean startProcessByOutput(final String output) {
-
-    final IVideoProcess p = this.processByOutput(output);
-    if (p != null) {
-      p.start();
-      return true;
-    }
-    return false;
-  }
-
-  public boolean stopProcessByOutput(final String output) {
-
-    final IVideoProcess p = this.processByOutput(output);
-    if (p != null) {
-      p.stop();
-      return true;
-    }
-    return false;
+    return this.getByHashData(hash) != null;
   }
 
   public int size() {
@@ -96,6 +64,6 @@ public class VideoProcessManager {
 
   public List<ProcessInfo> getInfoList() {
 
-    return this.processList.stream().map(p -> p.getInfo()).collect(Collectors.toList());
+    return this.processList.values().stream().map(p -> p.getInfo()).collect(Collectors.toList());
   }
 }

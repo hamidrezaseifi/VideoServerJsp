@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import de.seifi.videomanagerJsp.helper.FileData;
+import de.seifi.videomanagerJsp.helper.GuiSocketMessage;
 
 public class MkvProcess implements Runnable, IVideoProcess {
 
@@ -20,8 +23,10 @@ public class MkvProcess implements Runnable, IVideoProcess {
   private ProcessState state;
   private int lastPercent;
   private String lastPercentString;
+  private int hashData;
+  private final SimpMessagingTemplate simpMessagingTemplate;
 
-  public MkvProcess(final String filepathhash, final String lang) {
+  public MkvProcess(final String filepathhash, final String lang, final SimpMessagingTemplate simpMessagingTemplate) {
 
     final byte[] realpathdata = Base64.getDecoder().decode(filepathhash.getBytes());
     final String realfilePath = new String(realpathdata);
@@ -43,6 +48,7 @@ public class MkvProcess implements Runnable, IVideoProcess {
     this.lastPercent = 0;
     this.lastPercentString = "0";
     this.pMainProcess = null;
+    this.simpMessagingTemplate = simpMessagingTemplate;
   }
 
   @Override
@@ -57,6 +63,11 @@ public class MkvProcess implements Runnable, IVideoProcess {
       final InputStream is = this.pMainProcess.getInputStream();
       final InputStreamReader isr = new InputStreamReader(is);
       final BufferedReader br = new BufferedReader(isr);
+
+      final GuiSocketMessage msg = GuiSocketMessage.generate("ok");
+      msg.setCommand("status");
+      msg.setProcessHash(this.hashData);
+
       String line;
       while ((line = br.readLine()) != null) {
         this.statusList.add(line);
@@ -73,10 +84,14 @@ public class MkvProcess implements Runnable, IVideoProcess {
             this.lastPercentString = line + " : " + s + " : err: " + ex.getMessage();
           }
 
+          msg.setProcessInfo(this.getInfo());
+          this.simpMessagingTemplate.convertAndSend("/socket/messages", msg);
+
         }
       }
       this.state = ProcessState.Finished;
-
+      msg.setProcessInfo(this.getInfo());
+      this.simpMessagingTemplate.convertAndSend("/socket/messages", msg);
     }
     catch (final IOException e) {
       // e.printStackTrace();
@@ -163,4 +178,17 @@ public class MkvProcess implements Runnable, IVideoProcess {
 
     return this.lastPercentString;
   }
+
+  @Override
+  public int getHashData() {
+
+    return this.hashData;
+  }
+
+  @Override
+  public void setHashData(final int hashData) {
+
+    this.hashData = hashData;
+  }
+
 }

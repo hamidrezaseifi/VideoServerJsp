@@ -16,6 +16,8 @@
 		<put-list-attribute name="jsfilesList">
 		  	<add-attribute value="/resources/js/app.js" />
 		  	<add-attribute value="/resources/js/index.js" />
+		  	<add-attribute value="/resources/js/sockjs.min.js" />
+		  	<add-attribute value="/resources/js/stomp.min.js" />
 	 	</put-list-attribute>
 		<put-list-attribute name="cssfilesList"></put-list-attribute>
 
