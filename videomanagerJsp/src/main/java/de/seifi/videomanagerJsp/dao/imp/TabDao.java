@@ -9,23 +9,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import de.seifi.videomanagerJsp.dao.ITabDao;
-import de.seifi.videomanagerJsp.dao.helper.JpaUnitConfiguration;
+import de.seifi.videomanagerJsp.dao.helper.DaoBase;
 import de.seifi.videomanagerJsp.models.TabModel;
 
 @Repository
-public class TabDao implements ITabDao {
-
-  @Autowired
-  JpaUnitConfiguration jpaUnitConfiguration;
+public class TabDao extends DaoBase implements ITabDao {
 
   @Override
   public List<TabModel> readAll() {
 
-    final EntityManager entityManager = this.jpaUnitConfiguration.getEntityManager();
+    final EntityManager entityManager = this.createEntityManager();
 
     final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<TabModel> query = criteriaBuilder.createQuery(TabModel.class);

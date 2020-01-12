@@ -3,7 +3,6 @@ package de.seifi.videomanagerJsp.dao.imp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,23 +13,18 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.seifi.videomanagerJsp.dao.IPathSubtitleDao;
+import de.seifi.videomanagerJsp.dao.helper.DaoBase;
 import de.seifi.videomanagerJsp.models.PathSubtitleModel;
 
 @Repository
-public class PathSubtitleDao implements IPathSubtitleDao {
-
-  // @Autowired
-  // JpaUnitConfiguration jpaUnitConfiguration;
-
-  @PersistenceContext
-  private EntityManager entityManager;
+public class PathSubtitleDao extends DaoBase implements IPathSubtitleDao {
 
   @Override
   public List<PathSubtitleModel> readAll() {
 
-    // final EntityManager entityManager = this.jpaUnitConfiguration.getEntityManager();
+    final EntityManager entityManager = this.createEntityManager();
 
-    final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+    final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<PathSubtitleModel> query = criteriaBuilder.createQuery(PathSubtitleModel.class);
     final Root<PathSubtitleModel> root = query.from(PathSubtitleModel.class);
     query.select(root);
@@ -38,14 +32,14 @@ public class PathSubtitleDao implements IPathSubtitleDao {
     final Predicate predicate = criteriaBuilder.equal(root.get("state"), 1);
     query.where(predicate);
 
-    final TypedQuery<PathSubtitleModel> typedQuery = this.entityManager.createQuery(query);
+    final TypedQuery<PathSubtitleModel> typedQuery = entityManager.createQuery(query);
 
     // final String qr =
     // typedQuery.unwrap(org.hibernate.query.Query.class).getQueryString();
     // System.out.println("search workflow query: " + qr);
 
     final List<PathSubtitleModel> results = typedQuery.getResultList();
-
+    entityManager.close();
     return results;
   }
 
@@ -57,11 +51,9 @@ public class PathSubtitleDao implements IPathSubtitleDao {
 
   private PathSubtitleModel queryPathSubtitlsFromPath(final String path) {
 
-    // final String sql = " select id, path, suburl from tblpathsubtitle where path = ?";
+    final EntityManager entityManager = this.createEntityManager();
 
-    // final EntityManager entityManager = this.jpaUnitConfiguration.getEntityManager();
-
-    final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+    final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<PathSubtitleModel> query = criteriaBuilder.createQuery(PathSubtitleModel.class);
     final Root<PathSubtitleModel> root = query.from(PathSubtitleModel.class);
     query.select(root);
@@ -69,14 +61,14 @@ public class PathSubtitleDao implements IPathSubtitleDao {
     final Predicate predicate = criteriaBuilder.equal(root.get("path"), path);
     query.where(predicate);
 
-    final TypedQuery<PathSubtitleModel> typedQuery = this.entityManager.createQuery(query);
+    final TypedQuery<PathSubtitleModel> typedQuery = entityManager.createQuery(query);
 
     // final String qr =
     // typedQuery.unwrap(org.hibernate.query.Query.class).getQueryString();
     // System.out.println("search workflow query: " + qr);
 
     final List<PathSubtitleModel> results = typedQuery.getResultList();
-
+    entityManager.close();
     return results.size() > 0 ? results.get(0) : null;
 
   }
@@ -84,7 +76,9 @@ public class PathSubtitleDao implements IPathSubtitleDao {
   @Override
   public PathSubtitleModel readById(final Long id) {
 
-    final PathSubtitleModel model = this.entityManager.find(PathSubtitleModel.class, id);
+    final EntityManager entityManager = this.createEntityManager();
+    final PathSubtitleModel model = entityManager.find(PathSubtitleModel.class, id);
+    entityManager.close();
     return model;
   }
 
@@ -92,9 +86,11 @@ public class PathSubtitleDao implements IPathSubtitleDao {
   @Override
   public PathSubtitleModel save(final PathSubtitleModel model) {
 
-    this.entityManager.getTransaction().begin();
-    final PathSubtitleModel savedModel = this.entityManager.merge(model);
-    this.entityManager.getTransaction().commit();
+    final EntityManager entityManager = this.createEntityManager();
+    entityManager.getTransaction().begin();
+    final PathSubtitleModel savedModel = entityManager.merge(model);
+    entityManager.getTransaction().commit();
+    entityManager.close();
     return savedModel;
   }
 
@@ -102,12 +98,13 @@ public class PathSubtitleDao implements IPathSubtitleDao {
   public void delete(final PathSubtitleModel model) {
 
     if (model != null) {
+      final EntityManager entityManager = this.createEntityManager();
+      final PathSubtitleModel exists = entityManager.contains(model) ? model : entityManager.merge(model);
 
-      final PathSubtitleModel exists = this.entityManager.contains(model) ? model : this.entityManager.merge(model);
-
-      this.entityManager.getTransaction().begin();
-      this.entityManager.remove(exists);
-      this.entityManager.getTransaction().commit();
+      entityManager.getTransaction().begin();
+      entityManager.remove(exists);
+      entityManager.getTransaction().commit();
+      entityManager.close();
 
     }
 

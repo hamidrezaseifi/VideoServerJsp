@@ -3,8 +3,6 @@ package de.seifi.videomanagerJsp.dao.imp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,20 +13,12 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import de.seifi.videomanagerJsp.dao.IFolderDao;
+import de.seifi.videomanagerJsp.dao.helper.DaoBase;
 import de.seifi.videomanagerJsp.models.FolderModel;
 
 @Transactional
 @Repository
-public class FolderDao implements IFolderDao {
-
-  // @Autowired
-  // JpaUnitConfiguration jpaUnitConfiguration;
-
-  // @PersistenceContext(type = PersistenceContextType.EXTENDED)
-  // private EntityManager entityManager;
-
-  @PersistenceUnit
-  private EntityManagerFactory entityManagerFactory;
+public class FolderDao extends DaoBase implements IFolderDao {
 
   @Override
   public List<FolderModel> readAll(final boolean readDisabled) {
@@ -78,12 +68,6 @@ public class FolderDao implements IFolderDao {
     entityManager.close();
 
     return model;
-  }
-
-  private EntityManager createEntityManager() {
-
-    final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-    return entityManager;
   }
 
   @Override

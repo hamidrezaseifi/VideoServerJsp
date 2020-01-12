@@ -9,23 +9,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import de.seifi.videomanagerJsp.dao.ISetingsDao;
-import de.seifi.videomanagerJsp.dao.helper.JpaUnitConfiguration;
+import de.seifi.videomanagerJsp.dao.helper.DaoBase;
 import de.seifi.videomanagerJsp.models.SettingModel;
 
 @Repository
-public class SetingsDao implements ISetingsDao {
-
-  @Autowired
-  JpaUnitConfiguration jpaUnitConfiguration;
+public class SetingsDao extends DaoBase implements ISetingsDao {
 
   @Override
   public List<SettingModel> readAll() {
 
-    final EntityManager entityManager = this.jpaUnitConfiguration.getEntityManager();
+    final EntityManager entityManager = this.createEntityManager();
 
     final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<SettingModel> query = criteriaBuilder.createQuery(SettingModel.class);
