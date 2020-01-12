@@ -9,7 +9,8 @@
 	      <th scope="col" class="index">#</th>
 	      <th scope="col">Name</th>
 	      <th scope="col">Path</th>
-	      <th scope="col" class="action">...</th>
+	      <th scope="col">Status</th>
+	      <th scope="col" class="action"><a class="action-header" href="/folders/create"><i class="material-icons">create_new_folder</i></a></th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -18,6 +19,7 @@
 	      <th>${loop.index + 1}</th>
 	      <td>${folder.name}</td>
 	      <td>${folder.path}</td>
+	      <td>${folder.state == 1 ? 'Active' : 'Disabled'}</td>
 	      <td>
 			<a class="action" href="/folders/edit/${folder.id}"><i class="material-icons">edit</i></a>
 			<a class="action" href="/folders/delete/${folder.id}"><i class="material-icons">delete</i></a>

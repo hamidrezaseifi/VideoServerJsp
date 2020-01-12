@@ -12,6 +12,6 @@ public interface IFolderDao {
 
   void delete(FolderModel folder);
 
-  List<FolderModel> readAll();
+  List<FolderModel> readAll(boolean readDisabled);
 
 }

@@ -17,7 +17,7 @@ public class MainController {
   public String home(final Model model) {
 
     model.addAttribute("name", "test");
-    model.addAttribute("folders", this.folderDao.readAll());
+    model.addAttribute("folders", this.folderDao.readAll(false));
 
     return "index";
   }

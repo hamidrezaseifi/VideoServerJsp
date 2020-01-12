@@ -6,8 +6,10 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -18,9 +20,41 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @EnableTransactionManagement
-//@ComponentScan({ "com.spring.app" })
-//@PropertySource("classpath:config/db.properties")
+@PropertySource("classpath:config/db.properties")
 public class HibernateConfig {
+
+  @Value("${poolName}")
+  private String poolName;
+
+  @Value("${jdbcUrl}")
+  private String jdbcUrl;
+
+  @Value("${dbUserName}")
+  private String dbUserName;
+
+  @Value("${password}")
+  private String password;
+
+  @Value("${minIdleConnections}")
+  private Integer minIdleConnections;
+
+  @Value("${maxPoolSize}")
+  private Integer maxPoolSize;
+
+  @Value("${cachePreparedStatements}")
+  private Boolean cachePreparedStatements;
+
+  @Value("${preparedStatementsCacheSize}")
+  private Integer preparedStatementsCacheSize;
+
+  @Value("${preparedStatementsCacheSqlLimit}")
+  private Integer preparedStatementsCacheSqlLimit;
+
+  @Value("${useServerSidePreparedStatements}")
+  private Boolean useServerSidePreparedStatements;
+
+  @Value("${className}")
+  private String className;
 
   @Bean
   public LocalSessionFactoryBean sessionFactory() {
@@ -39,17 +73,20 @@ public class HibernateConfig {
 
     final HikariConfig configuration = new HikariConfig();
     configuration.setAutoCommit(false);
-    configuration.setPoolName("VIDEOMANAGER-DB-Pool");
-    configuration.setDriverClassName("com.mysql.jdbc.Driver");
-    configuration.setMinimumIdle(5);
-    configuration.setJdbcUrl("jdbc:mysql://localhost:3306/jvideo");
+    configuration.setPoolName(this.poolName);
+    configuration.setDriverClassName(this.className);
+    configuration.setMinimumIdle(this.minIdleConnections);
+    configuration.setJdbcUrl(this.jdbcUrl);
     configuration.setIdleTimeout(120000L);
-    configuration.setMaximumPoolSize(50);
-    configuration.setUsername("jvideo");
-    configuration.setPassword("jvideo");
+    configuration.setMaximumPoolSize(this.maxPoolSize);
+    configuration.setUsername(this.dbUserName);
+    configuration.setPassword(this.password);
     configuration.setTransactionIsolation("TRANSACTION_READ_COMMITTED");
-    configuration.setMaxLifetime(2000000);
-    configuration.setConnectionTimeout(30000);
+
+    configuration.addDataSourceProperty("cachePrepStmts", this.cachePreparedStatements);
+    configuration.addDataSourceProperty("prepStmtCacheSize", this.preparedStatementsCacheSize);
+    configuration.addDataSourceProperty("prepStmtCacheSqlLimit", this.preparedStatementsCacheSqlLimit);
+    configuration.addDataSourceProperty("useServerPrepStmts", this.useServerSidePreparedStatements);
 
     final HikariDataSource ds = new HikariDataSource(configuration);
     ds.validate();
@@ -68,7 +105,9 @@ public class HibernateConfig {
   @Bean
   public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 
-    return new PersistenceExceptionTranslationPostProcessor();
+    final PersistenceExceptionTranslationPostProcessor proc = new PersistenceExceptionTranslationPostProcessor();
+
+    return proc;
   }
 
   Properties hibernateProperties() {

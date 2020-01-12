@@ -29,6 +29,16 @@ body{
 }
 
 
+.table.table-bordered a.action-header{
+    border: none;
+    background: transparent;
+    color: #ffffff;
+}
+
+.table.table-bordered a.action-header:hover{
+    color: #ffffbb;
+}
+
 footer{
 	position: absolute;
     bottom: 0;
@@ -212,4 +222,24 @@ header h3 a:hover{
     height: 20px;
 }
 
+.form-container-parent{
+	width: 100%
+	margin-top: 50px;
+}
+
+.form-container{
+	margin: 0 50px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.form-container .form-message-error {
+    display: inline-block;
+    min-height: 20px;
+    width: calc(100% - 290px);
+    margin-left: 20px;
+    font-size: 14px;
+    color: #dc3545;
+}
 

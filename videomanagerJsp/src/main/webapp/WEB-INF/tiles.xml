@@ -50,7 +50,17 @@
 		 <put-attribute name="body" value="/WEB-INF/jsp/pages/folder-delete.jsp" />  
 		<put-list-attribute name="jsfilesList">
 		  	<add-attribute value="/resources/js/app.js" />
-		  	<add-attribute value="/resources/js/folder-delete.js" />
+	 	</put-list-attribute>
+		<put-list-attribute name="cssfilesList"></put-list-attribute>
+
+	</definition>  
+	  
+	<!-- Folders-Delete Page -->
+	<definition name="folder-create" extends="base-definition">  
+		<put-attribute name="body" value="/WEB-INF/jsp/pages/folder-create.jsp" />  
+		<put-list-attribute name="jsfilesList">
+		  	<add-attribute value="/resources/js/app.js" />
+		  	<add-attribute value="/resources/js/folder-create.js" />
 	 	</put-list-attribute>
 		<put-list-attribute name="cssfilesList"></put-list-attribute>
 

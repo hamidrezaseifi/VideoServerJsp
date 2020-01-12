@@ -3,7 +3,8 @@ package de.seifi.videomanagerJsp.dao.imp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,52 +17,73 @@ import org.springframework.stereotype.Repository;
 import de.seifi.videomanagerJsp.dao.IFolderDao;
 import de.seifi.videomanagerJsp.models.FolderModel;
 
+@Transactional
 @Repository
 public class FolderDao implements IFolderDao {
 
   // @Autowired
   // JpaUnitConfiguration jpaUnitConfiguration;
 
-  @PersistenceContext
-  private EntityManager entityManager;
+  // @PersistenceContext(type = PersistenceContextType.EXTENDED)
+  // private EntityManager entityManager;
+
+  @PersistenceUnit
+  private EntityManagerFactory entityManagerFactory;
 
   @Override
-  public List<FolderModel> readAll() {
+  public List<FolderModel> readAll(final boolean readDisabled) {
 
-    final CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+    final EntityManager entityManager = this.createEntityManager();
+
+    final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     final CriteriaQuery<FolderModel> query = criteriaBuilder.createQuery(FolderModel.class);
     final Root<FolderModel> root = query.from(FolderModel.class);
     query.select(root);
 
-    final Predicate predicate = criteriaBuilder.equal(root.get("state"), 1);
-    query.where(predicate);
+    if (readDisabled == false) {
+      final Predicate predicate = criteriaBuilder.equal(root.get("state"), 1);
+      query.where(predicate);
+    }
 
-    final TypedQuery<FolderModel> typedQuery = this.entityManager.createQuery(query);
+    final TypedQuery<FolderModel> typedQuery = entityManager.createQuery(query);
 
     // final String qr =
     // typedQuery.unwrap(org.hibernate.query.Query.class).getQueryString();
     // System.out.println("search workflow query: " + qr);
 
     final List<FolderModel> results = typedQuery.getResultList();
-
+    entityManager.close();
     return results;
   }
 
   @Override
   public FolderModel readById(final Long id) {
 
-    final FolderModel model = this.entityManager.find(FolderModel.class, id);
+    final EntityManager entityManager = this.createEntityManager();
+
+    final FolderModel model = entityManager.find(FolderModel.class, id);
+    entityManager.close();
     return model;
   }
 
-  @Transactional
   @Override
   public FolderModel save(final FolderModel folder) {
 
-    this.entityManager.getTransaction().begin();
-    final FolderModel model = this.entityManager.merge(folder);
-    this.entityManager.getTransaction().commit();
+    final EntityManager entityManager = this.createEntityManager();
+    // final EntityManager entityManager = emf.createEntityManager();
+
+    entityManager.getTransaction().begin();
+    final FolderModel model = entityManager.merge(folder);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
     return model;
+  }
+
+  private EntityManager createEntityManager() {
+
+    final EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+    return entityManager;
   }
 
   @Override
@@ -69,11 +91,13 @@ public class FolderDao implements IFolderDao {
 
     if (folder != null) {
 
-      final FolderModel exists = this.entityManager.contains(folder) ? folder : this.entityManager.merge(folder);
+      final EntityManager entityManager = this.createEntityManager();
+      final FolderModel exists = entityManager.contains(folder) ? folder : entityManager.merge(folder);
 
-      this.entityManager.getTransaction().begin();
-      this.entityManager.remove(exists);
-      this.entityManager.getTransaction().commit();
+      entityManager.getTransaction().begin();
+      entityManager.remove(exists);
+      entityManager.getTransaction().commit();
+      entityManager.close();
 
     }
 
