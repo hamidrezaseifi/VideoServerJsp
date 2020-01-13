@@ -7,13 +7,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-public class VideoManagerApp extends SpringBootServletInitializer {
+public class VideoManagerApp {
 
-  @Override
-  protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
-
-    return application.sources(VideoManagerApp.class);
-  }
+  
 
   public static void main(final String[] args) {
 
