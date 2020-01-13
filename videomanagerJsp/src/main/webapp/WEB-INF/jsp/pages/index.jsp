@@ -28,12 +28,18 @@
 			    <div class="tab-content" id="nav-tabContent">
 			    	<c:forEach items="${folders}" var="folder" varStatus="loop">
 			    		<div class="tab-pane fade <c:if test = "${loop.index == 0}" >show active</c:if>" id="files-${folder.id}" role="tabpanel" aria-labelledby="folder${folder.id}">
-			    			<h3>${folder.path}</h3>
+			    			<div class="folder-title">
+			    				<span>${folder.path}</span> 
+			    				<input type="text" ng-model="filter" class="filter" >
+			    				<label>Filter</label>
+								<button type="button" ng-click="filter = '';"><i class="material-icons">close</i></button>			    				
+							</div>
 			    			<div class="file-list-container">
 				    			<div ng-repeat="file in getFolderFiles(${folder.id})" class="file-list-item" ng-class="{'hassub': file.converted || file.hasConverted, 'nosub' : (file.converted === false) || (file.hasConverted === false)}">
 				    				<span class="filename">{{file.name}}</span>
 				    				<a target="_self" href="localexplorer:{{file.folderPath}}"><i class="material-icons">folder</i></a>
-				    				<button type="button" ng-click="searchSub(file.name)"><i class="material-icons">search</i></button>
+				    				<button type="button" ng-if="file.hasSubtitleUrl === false" ng-click="searchSub(file.name)"><i class="material-icons">search</i></button>
+				    				<a target="_blank" ng-if="file.hasSubtitleUrl" href="{{file.subtitleUrl}}"><i class="material-icons">search</i></a>
 				    				<button ng-if="file.hasSubtitle" ng-click="showAddSubModal(file)" type="button"><i class="material-icons">note_add</i></button>
 				    				
 				    			</div>

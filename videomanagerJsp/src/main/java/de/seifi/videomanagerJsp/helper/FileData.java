@@ -73,7 +73,7 @@ public class FileData {
     bytesEncoded = Base64.getEncoder().encode(this.subtitlePath.getBytes());
     this.subtitlePathHash = new String(bytesEncoded);
 
-    this.subtitleUrl = "https://subscene.com/subtitles/release?q=" + this.name;
+    this.subtitleUrl = "";
 
     // final PathSubtitleModel subpath = this.pathSubtitlesHandler.getPathSubtitlesFromPath(this.FolderPath);
 
@@ -151,6 +151,11 @@ public class FileData {
   public String getSubtitleUrl() {
 
     return this.subtitleUrl;
+  }
+
+  public boolean getHasSubtitleUrl() {
+
+    return this.subtitleUrl.equals("") == false;
   }
 
   public void setSubtitleUrl(final String subtitleUrl) {

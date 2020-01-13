@@ -9,6 +9,7 @@ videoApp.controller('IndexController', function($scope, $http) {
 	$scope.addSubLang = "";
 	
 	$scope.processlist = [];
+	$scope.filter = "";
 	
 	
 	
@@ -94,11 +95,20 @@ videoApp.controller('IndexController', function($scope, $http) {
 	
 	
 	$scope.getFolderFiles = function(folderId){
+		var files = [];
 		if(folderId in $scope.files){
-			return $scope.files[folderId];
+			files = $scope.files[folderId];
 		}
 		
-		return [];
+		if($scope.filter !== ''){
+			var temp = files;
+			
+			files = temp.filter(function(file){
+    			return file.name.toLowerCase().indexOf($scope.filter.toLowerCase()) > -1;
+    		});
+		}
+		
+		return files;
 	}
 	
 	$scope.reloadFiles = function(folderId){

@@ -149,7 +149,7 @@ header h3 a:hover{
 	margin-right: 5px;
 }
 
-.file-list-item button{
+.file-list-item button, .folder-title button{
 	margin: 0 5px;
 	border: none;
 	background-color: transparent;
@@ -157,7 +157,8 @@ header h3 a:hover{
 }
 
 .file-list-item button i.material-icons, 
-.file-list-item a i.material-icons{
+.file-list-item a i.material-icons, 
+.folder-title button i.material-icons{
 	top: 4px;
 	font-size: 22px;
 	color: #5f5e5e;
@@ -246,5 +247,34 @@ header h3 a:hover{
 .subtitle-list-container{
 	height: calc(100vh - 150px);
 	overflow: auto;	
+}
+
+.folder-title{
+	font-size: 20px;
+	position: relative;
+}
+
+.folder-title label{
+	font-size: 16px;
+	height: 24px;
+	margin: 0 5px 0 20px;
+	position: absolute;
+	right: 230px;
+	top: 4px;
+}
+
+.folder-title input.filter{
+	font-size: 14px;
+	height: 24px;
+	position: absolute;
+	right: 6px;
+	width: 220px;
+	top: 4px;
+}
+
+.folder-title button{
+	position: absolute;
+	right: 0px;
+	top: 4px;
 }
 
