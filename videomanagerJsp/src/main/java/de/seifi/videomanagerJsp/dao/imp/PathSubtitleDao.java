@@ -29,9 +29,6 @@ public class PathSubtitleDao extends DaoBase implements IPathSubtitleDao {
     final Root<PathSubtitleModel> root = query.from(PathSubtitleModel.class);
     query.select(root);
 
-    final Predicate predicate = criteriaBuilder.equal(root.get("state"), 1);
-    query.where(predicate);
-
     final TypedQuery<PathSubtitleModel> typedQuery = entityManager.createQuery(query);
 
     // final String qr =
@@ -46,11 +43,6 @@ public class PathSubtitleDao extends DaoBase implements IPathSubtitleDao {
   @Override
   public PathSubtitleModel getPathSubtitlesFromPath(final String path) {
 
-    return this.queryPathSubtitlsFromPath(path);
-  }
-
-  private PathSubtitleModel queryPathSubtitlsFromPath(final String path) {
-
     final EntityManager entityManager = this.createEntityManager();
 
     final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -59,6 +51,31 @@ public class PathSubtitleDao extends DaoBase implements IPathSubtitleDao {
     query.select(root);
 
     final Predicate predicate = criteriaBuilder.equal(root.get("path"), path);
+    query.where(predicate);
+
+    final TypedQuery<PathSubtitleModel> typedQuery = entityManager.createQuery(query);
+
+    // final String qr =
+    // typedQuery.unwrap(org.hibernate.query.Query.class).getQueryString();
+    // System.out.println("search workflow query: " + qr);
+
+    final List<PathSubtitleModel> results = typedQuery.getResultList();
+    entityManager.close();
+    return results.size() > 0 ? results.get(0) : null;
+
+  }
+
+  @Override
+  public PathSubtitleModel getPathSubtitlesFromSubUrl(final String suburl) {
+
+    final EntityManager entityManager = this.createEntityManager();
+
+    final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<PathSubtitleModel> query = criteriaBuilder.createQuery(PathSubtitleModel.class);
+    final Root<PathSubtitleModel> root = query.from(PathSubtitleModel.class);
+    query.select(root);
+
+    final Predicate predicate = criteriaBuilder.equal(root.get("suburl"), suburl);
     query.where(predicate);
 
     final TypedQuery<PathSubtitleModel> typedQuery = entityManager.createQuery(query);

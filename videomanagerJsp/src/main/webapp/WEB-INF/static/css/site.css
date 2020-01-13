@@ -243,3 +243,8 @@ header h3 a:hover{
     color: #dc3545;
 }
 
+.subtitle-list-container{
+	height: calc(100vh - 150px);
+	overflow: auto;	
+}
+

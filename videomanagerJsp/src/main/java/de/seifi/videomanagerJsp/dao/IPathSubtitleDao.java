@@ -15,4 +15,6 @@ public interface IPathSubtitleDao {
   List<PathSubtitleModel> readAll();
 
   PathSubtitleModel getPathSubtitlesFromPath(String path);
+
+  PathSubtitleModel getPathSubtitlesFromSubUrl(String suburl);
 }

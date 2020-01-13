@@ -66,4 +66,48 @@
 
 	</definition>  
 	  
+	  
+	<!-- Subtitles-Index Page -->
+	<definition name="subtitles" extends="base-definition">  
+		<put-attribute name="body" value="/WEB-INF/jsp/pages/subtitles.jsp" />  
+		<put-list-attribute name="jsfilesList">
+		  	<add-attribute value="/resources/js/app.js" />
+		  	<add-attribute value="/resources/js/subtitles.js" />
+	 	</put-list-attribute>
+		<put-list-attribute name="cssfilesList"></put-list-attribute>
+		 
+	</definition>  
+			 
+	<!-- Folders-Edit Page -->
+	<definition name="subtitle-edit" extends="base-definition">  
+		 <put-attribute name="body" value="/WEB-INF/jsp/pages/subtitle-edit.jsp" />  
+		<put-list-attribute name="jsfilesList">
+		  	<add-attribute value="/resources/js/app.js" />
+		  	<add-attribute value="/resources/js/subtitle-edit.js" />
+	 	</put-list-attribute>
+		<put-list-attribute name="cssfilesList"></put-list-attribute>
+
+	</definition>  
+	  
+	<!-- Folders-Delete Page -->
+	<definition name="subtitle-delete" extends="base-definition">  
+		 <put-attribute name="body" value="/WEB-INF/jsp/pages/subtitle-delete.jsp" />  
+		<put-list-attribute name="jsfilesList">
+		  	<add-attribute value="/resources/js/app.js" />
+	 	</put-list-attribute>
+		<put-list-attribute name="cssfilesList"></put-list-attribute>
+
+	</definition>  
+	  
+	<!-- Folders-Delete Page -->
+	<definition name="subtitle-create" extends="base-definition">  
+		<put-attribute name="body" value="/WEB-INF/jsp/pages/subtitle-create.jsp" />  
+		<put-list-attribute name="jsfilesList">
+		  	<add-attribute value="/resources/js/app.js" />
+		  	<add-attribute value="/resources/js/subtitle-create.js" />
+	 	</put-list-attribute>
+		<put-list-attribute name="cssfilesList"></put-list-attribute>
+
+	</definition>  
+	  
 </tiles-definitions>
