@@ -124,9 +124,14 @@ header h3 a:hover{
 	height: 100%;
 }
 
-.files-panel .tab-content .tab-pane .file-list-container , .process-panel .tab-content .tab-pane .file-list-container{
-	height: calc(100% - 40px);
+.files-panel .file-list-container , .process-panel .file-list-container{
+	height: calc(100% - 55px);
     overflow-y: auto;
+    border: solid gray 1px;
+    margin-top: 10px;
+    padding: 2px;
+    padding-right: 0;
+    padding-bottom: 5px;
 }
 
 .files-panel .file-list-item , .process-panel .file-list-item{
@@ -250,8 +255,12 @@ header h3 a:hover{
 }
 
 .folder-title{
-	font-size: 20px;
-	position: relative;
+	font-size: 22px;
+    position: relative;
+    background: #d6d5d5;
+    padding: 5px;
+    padding-left: 10px;
+    margin-top: 7px;
 }
 
 .folder-title label{
@@ -260,7 +269,7 @@ header h3 a:hover{
 	margin: 0 5px 0 20px;
 	position: absolute;
 	right: 230px;
-	top: 4px;
+	top: 9px;
 }
 
 .folder-title input.filter{
@@ -269,12 +278,22 @@ header h3 a:hover{
 	position: absolute;
 	right: 6px;
 	width: 220px;
-	top: 4px;
+	top: 9px;
 }
 
 .folder-title button{
 	position: absolute;
 	right: 0px;
-	top: 4px;
+	top: 7px;
 }
+
+.processtab{
+	height: calc(100% - 20px);
+    width: calc(100% - 20px);
+}
+
+.processtab .process-panel{
+	height: 100%;
+}
+
 

@@ -51,9 +51,9 @@
 			</div>   
 
 		</div>
-	  	<div class="tab-pane fade" id="processtab" role="tabpanel" aria-labelledby="profile-tab">
+	  	<div class="tab-pane fade processtab" id="processtab" role="tabpanel" aria-labelledby="profile-tab">
 		    <div class="tab-content process-panel" id="nav-tabContent">
-	    		<h3>Process List : {{ connected === true ? 'Connected ...' : 'Not Connected!' }}</h3>
+	    		<h3 class="folder-title">Process List : {{ connected === true ? 'Connected ...' : 'Not Connected!' }}</h3>
     			<div class="file-list-container">
 	    			<div ng-repeat="process in processlist" class="file-list-item nosub">
 	    				<span class="filename">{{process.outputFileName}}</span>
@@ -71,6 +71,7 @@
 	    				
 	    			</div>
     			</div>
+    			<div class="clear"></div>
 		    </div>
 		</div>
 	</div>		
